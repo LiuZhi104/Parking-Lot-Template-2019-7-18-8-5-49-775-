@@ -60,7 +60,7 @@ public class ParkinglotJpaTest {
         Parkinglot parkinglot=new Parkinglot();
         //when// /then
         Assertions.assertThrows(Exception.class,()->{
-            ParkinglotRepository.saveAndFlush(Parkinglot);
+            parkinglotRepository.saveAndFlush(parkinglot);
 
         });
     }

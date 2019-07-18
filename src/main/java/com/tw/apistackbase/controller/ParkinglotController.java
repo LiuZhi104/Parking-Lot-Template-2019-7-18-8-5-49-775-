@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,6 +29,14 @@ public class ParkinglotController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(parkinglots.remove(parkinglot));
+    }
+    @GetMapping("/parkinglots")
+    public ResponseEntity<List<Parkinglot>> getHasPageAndPageSize(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue ="0") int pageSize) {
+        if (page == 0 || pageSize == 0) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(parkinglotRes.getParkinglots().subList(page*(pageSize-1),page*pageSize));
+        }
     }
 
 }

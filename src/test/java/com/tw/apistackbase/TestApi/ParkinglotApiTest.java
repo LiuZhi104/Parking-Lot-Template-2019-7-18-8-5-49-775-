@@ -16,8 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @RunWith(SpringRunner.class)
@@ -43,10 +42,28 @@ public class ParkinglotApiTest {
     @Test
     public  void should_delete_parkinglot_when_delete_parkinglot_by_id() throws Exception {
         //given
-        mockMvc.perform(delete("/parkinglots/1")).andDo(print()).andExpect(MockMvcResultMatchers.status().isOk());
         //when
         //then
+        mockMvc.perform(delete("/parkinglots/1")).andDo(print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
+    @Test
+    public  void should_find_parkinglots_information_when_has_parkinglot_page_and_pagesize() throws Exception {
+        //given
+        List<Parkinglot> mockList=new ArrayList<>();
+        Parkinglot parkinglot1=new Parkinglot(1,"parkone",10,"胡同");
+        Parkinglot parkinglot2=new Parkinglot(2,"parktwo",10,"胡同1");
+        Parkinglot parkinglot3=new Parkinglot(3,"parkthree",10,"胡同2");
+        Parkinglot parkinglot4=new Parkinglot(4,"parkfour",10,"胡同3");
+        mockList.add(parkinglot1);
+        mockList.add(parkinglot2);
+        mockList.add(parkinglot3);
+        mockList.add(parkinglot4);
+        //when
+        Mockito.when(parkinglotRes.getParkinglots()).thenReturn(mockList);
+        //then
+        mockMvc.perform(get("/parkinglots?page=1&pagesize=15")).andDo(print()).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
 
 
 
