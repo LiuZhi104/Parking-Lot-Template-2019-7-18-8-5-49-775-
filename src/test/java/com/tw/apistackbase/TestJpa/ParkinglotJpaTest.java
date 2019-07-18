@@ -93,4 +93,5 @@ public class ParkinglotJpaTest {
         Assertions.assertEquals("parkone",parkinglot.getParkingName());
     }
 
+
 }

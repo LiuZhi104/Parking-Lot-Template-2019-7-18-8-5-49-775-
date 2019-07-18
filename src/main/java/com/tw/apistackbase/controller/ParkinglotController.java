@@ -43,6 +43,15 @@ public class ParkinglotController {
     public ResponseEntity<Parkinglot> getSpecialParkinglot(@PathVariable int id) {
         return ResponseEntity.ok(parkinglotRes.getParkinglots().stream().filter(element -> element.getId() == id).findFirst().get());
     }
+    @PutMapping("/parkings/{id}")
+    public ResponseEntity updateCompany(@PathVariable int id) {
+     int staus = parkinglotRepository.updateParkinglot(id);
+     Parkinglot parkinglot=parkinglotRepository.findById(id).get();
+        if (staus == 1) {
+            return ResponseEntity.ok(parkinglot);
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }
 
