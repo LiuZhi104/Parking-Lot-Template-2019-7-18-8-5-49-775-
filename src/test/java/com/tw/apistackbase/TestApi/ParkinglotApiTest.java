@@ -16,7 +16,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,7 +32,7 @@ public class ParkinglotApiTest {
     private ParkinglotRes parkinglotRes;
     @Test
     public void should_return_parkinglot_when_post_parkinglot_object() throws Exception {
-        //give
+        //given
         List<Parkinglot> mockList=new ArrayList<>();
         mockList.add(new Parkinglot("jijia",10,"hhshs"));
         //when
@@ -38,6 +40,13 @@ public class ParkinglotApiTest {
         //then
         mockMvc.perform(post("/parkinglots")).andExpect(MockMvcResultMatchers.status().isOk());
     }
+    public  void should_delete_parkinglot_when_delete_parkinglot_by_id() throws Exception {
+        //given
+        mockMvc.perform(delete("/parkinglots/1")).andDo(print()).andExpect(MockMvcResultMatchers.status().isOk());
+        //when
+        //then
+    }
+
 
 
 
