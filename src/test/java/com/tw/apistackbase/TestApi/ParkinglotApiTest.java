@@ -40,6 +40,7 @@ public class ParkinglotApiTest {
         //then
         mockMvc.perform(post("/parkinglots")).andExpect(MockMvcResultMatchers.status().isOk());
     }
+    @Test
     public  void should_delete_parkinglot_when_delete_parkinglot_by_id() throws Exception {
         //given
         mockMvc.perform(delete("/parkinglots/1")).andDo(print()).andExpect(MockMvcResultMatchers.status().isOk());

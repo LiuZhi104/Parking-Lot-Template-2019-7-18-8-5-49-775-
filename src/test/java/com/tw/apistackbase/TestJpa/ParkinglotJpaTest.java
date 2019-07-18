@@ -37,6 +37,33 @@ public class ParkinglotJpaTest {
         //then
         Assertions.assertEquals(4,parkinglots.size());
     }
+    @Test
+    public void should_delete_parkinglot_when_delete_parkinglot_case_by_id(){
+        //given
+        Parkinglot parkinglot1=new Parkinglot(1,"parkone",10,"胡同");
+        parkinglotRepository.save(parkinglot1);
+        Parkinglot parkinglot2=new Parkinglot(2,"parktwo",10,"胡同1");
+        parkinglotRepository.save(parkinglot2);
+        Parkinglot parkinglot3=new Parkinglot(3,"parkthree",10,"胡同2");
+        parkinglotRepository.save(parkinglot3);
+        Parkinglot parkinglot4=new Parkinglot(4,"parkfour",10,"胡同3");
+        //when
+        parkinglotRepository.deleteById(1);
+        List<Parkinglot> parkinglots=parkinglotRepository.findAll();
+        //then
+        Assertions.assertEquals(3,parkinglots.size());
+    }
+
+    @Test
+    public void should_can_add_when_property_null() {
+        //given
+        Parkinglot parkinglot=new Parkinglot();
+        //when// /then
+        Assertions.assertThrows(Exception.class,()->{
+            ParkinglotRepository.saveAndFlush(Parkinglot);
+
+        });
+    }
 
 
 }
