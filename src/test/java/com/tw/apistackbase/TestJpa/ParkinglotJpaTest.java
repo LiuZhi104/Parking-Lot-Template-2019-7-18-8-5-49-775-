@@ -80,5 +80,17 @@ public class ParkinglotJpaTest {
         Assertions.assertEquals(3,parkinglots.size());
     }
 
+    @Test
+    public  void should_find_parkinglot_information_when_has_parkinglot_by_id(){
+        //given
+        Parkinglot parkinglot1=new Parkinglot(1,"parkone",10,"胡同");
+        parkinglotRepository.save(parkinglot1);
+        Parkinglot parkinglot2=new Parkinglot(2,"parktwo",10,"胡同1");
+        parkinglotRepository.save(parkinglot2);
+        //when
+       Parkinglot parkinglot=parkinglotRepository.findById(Integer.valueOf(1)).get();
+       //then
+        Assertions.assertEquals("parkone",parkinglot.getParkingName());
+    }
 
 }
