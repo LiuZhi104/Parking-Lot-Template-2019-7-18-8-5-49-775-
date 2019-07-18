@@ -64,8 +64,23 @@ public class ParkinglotApiTest {
         mockMvc.perform(get("/parkinglots?page=1&pagesize=15")).andDo(print()).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-
-
+    @Test
+    public  void should_find_parkinglot_information_when_has_parkinglot_by_id() throws Exception {
+        //given
+        List<Parkinglot> mockList=new ArrayList<>();
+        Parkinglot parkinglot1=new Parkinglot(1,"parkone",10,"胡同");
+        Parkinglot parkinglot2=new Parkinglot(2,"parktwo",10,"胡同1");
+        Parkinglot parkinglot3=new Parkinglot(3,"parkthree",10,"胡同2");
+        Parkinglot parkinglot4=new Parkinglot(4,"parkfour",10,"胡同3");
+        mockList.add(parkinglot1);
+        mockList.add(parkinglot2);
+        mockList.add(parkinglot3);
+        mockList.add(parkinglot4);
+        //when
+        Mockito.when(parkinglotRes.getParkinglots()).thenReturn(mockList);
+        //then
+        mockMvc.perform(get("/parkinglots/1")).andDo(print()).andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
 
 }

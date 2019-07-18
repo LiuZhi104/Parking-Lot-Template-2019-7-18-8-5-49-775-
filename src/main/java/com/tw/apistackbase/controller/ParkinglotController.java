@@ -39,5 +39,10 @@ public class ParkinglotController {
         }
     }
 
+    @GetMapping("/parkinglots/{id}")
+    public ResponseEntity<Parkinglot> getSpecialParkinglot(@PathVariable int id) {
+        return ResponseEntity.ok(parkinglotRes.getParkinglots().stream().filter(element -> element.getId() == id).findFirst().get());
+    }
+
 }
 
