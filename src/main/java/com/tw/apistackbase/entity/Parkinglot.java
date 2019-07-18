@@ -6,25 +6,24 @@ import javax.validation.constraints.Min;
 @Entity
 public class Parkinglot {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private  int id;
     @Column(unique = true)
     private String parkingName;
-    @Min(value = 0)
     private int capcity;
     private  String position;
 
     public Parkinglot() {
     }
 
-    public Parkinglot(int id, String parkingName, @Min(value = 0) int capcity, String position) {
+    public Parkinglot(int id, String parkingName, int capcity, String position) {
         this.id = id;
         this.parkingName = parkingName;
         this.capcity = capcity;
         this.position = position;
     }
 
-    public Parkinglot(String parkingName, @Min(value = 0) int capcity, String position) {
+    public Parkinglot(String parkingName,  int capcity, String position) {
         this.parkingName = parkingName;
         this.capcity = capcity;
         this.position = position;

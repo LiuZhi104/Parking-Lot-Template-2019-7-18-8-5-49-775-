@@ -37,5 +37,6 @@ public class ParkinglotJpaTest {
         //then
         Assertions.assertEquals(4,parkinglots.size());
     }
-    
+
+
 }
