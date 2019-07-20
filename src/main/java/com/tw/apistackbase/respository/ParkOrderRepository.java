@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ParkOrderRepository extends JpaRepository<ParkOrder,Long> {
     @Modifying
-    @Query(value = "update ParkOrder p set p.staus=false where p.orderNumber=?",nativeQuery = true)
+    @Query(value = "update ParkOrder p set p.staus=false  where p.orderNumber=?",nativeQuery = true)
     int  updateparkOrder(long orderNumber,boolean status);
 
 }

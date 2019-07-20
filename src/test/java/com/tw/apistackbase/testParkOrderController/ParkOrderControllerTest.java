@@ -17,8 +17,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @RunWith(SpringRunner.class)
@@ -34,22 +36,36 @@ public class ParkOrderControllerTest {
     @Test
     public void should_return_parkOrder_when_post_parkOrder_object() throws Exception {
         //given
-        List<ParkOrder> mockList=new ArrayList<>();
-        mockList.add(new ParkOrder(1001,"jijia",1,true));
+        String jsonString = "{\n" +
+                "\"oderNumber\":1001,\n" +
+                "\"parkinglotName\":\"奔驰\",\n" +
+                "\"carNumber\":1,\n" +
+                "\"status\":true\n" +
+                "}";
         //when
-        Mockito.when(parkOrderRes.getParkOrders()).thenReturn(mockList);
+        ParkOrder parkOrder=new ParkOrder(1001,"奔驰",1,true);
         //then
-        mockMvc.perform(post("/parkorders")).andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.post("/parkOrders")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonString))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.oderNumber", Matchers.is(1001)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.parkinglotName",Matchers.is("奔驰")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.carNumber",Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status",Matchers.is(true)));
     }
     @Test
     public void should_update_parkOrder_information_when_put_ordernumber_and_staus() throws Exception {
+        //given
         String jsonString = "{\n" +
                 "\"oderNumber\":1002,\n" +
                 "\"parkinglotName\":\"AODI\",\n" +
                 "\"carNumber\":2,\n" +
                 "\"status\":false\n" +
                 "}";
+        //when
         ParkOrder parkOrder=new ParkOrder(1002,"AODI",2,false);
+        //then
         mockMvc.perform(MockMvcRequestBuilders.put("/parkOrders/{orderNumber}")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonString))
@@ -59,5 +75,15 @@ public class ParkOrderControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.carNumber",Matchers.is(2)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status",Matchers.is(false)));
     }
+    @Test
+    public  void should_get_exception_message_when_parkinglot_is_full() throws Exception {
+        //given
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/parkOrders?id=1").content("停车场已经满"))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+
 
 }
