@@ -1,1 +1,0 @@
-update parkinglot set  capcity=capcity+200 where id=1

@@ -1,4 +1,4 @@
-package com.tw.apistackbase;
+package com.tw.apistackbase.Res;
 
 import com.tw.apistackbase.entity.Parkinglot;
 

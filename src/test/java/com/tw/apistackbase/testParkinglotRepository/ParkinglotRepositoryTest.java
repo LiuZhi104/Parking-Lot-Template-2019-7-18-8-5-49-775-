@@ -1,4 +1,4 @@
-package com.tw.apistackbase.TestJpa;
+package com.tw.apistackbase.testParkinglotRepository;
 
 import com.tw.apistackbase.entity.Parkinglot;
 import com.tw.apistackbase.respository.ParkinglotRepository;
@@ -18,7 +18,7 @@ import java.util.List;
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class ParkinglotJpaTest {
+public class ParkinglotRepositoryTest {
     @Autowired
     private ParkinglotRepository parkinglotRepository;
     @Test

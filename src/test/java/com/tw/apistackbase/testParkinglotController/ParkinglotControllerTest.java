@@ -1,6 +1,6 @@
-package com.tw.apistackbase.TestApi;
+package com.tw.apistackbase.testParkinglotController;
 
-import com.tw.apistackbase.ParkinglotRes;
+import com.tw.apistackbase.Res.ParkinglotRes;
 import com.tw.apistackbase.entity.Parkinglot;
 import com.tw.apistackbase.respository.ParkinglotRepository;
 import org.junit.Test;
@@ -22,9 +22,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ParkinglotApiTest {
+public class ParkinglotControllerTest {
     @Autowired
-    private MockMvc mockMvc;;
+    private MockMvc mockMvc;
     @Autowired
     private ParkinglotRepository parkinglotRepository;
     @Autowired

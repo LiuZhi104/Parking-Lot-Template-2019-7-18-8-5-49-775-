@@ -1,1 +1,0 @@
-delete from parkinglot where id=1

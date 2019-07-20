@@ -1,18 +1,19 @@
 package com.tw.apistackbase.controller;
 
-import com.tw.apistackbase.ParkinglotRes;
+import com.tw.apistackbase.Res.ParkinglotRes;
 import com.tw.apistackbase.entity.Parkinglot;
 import com.tw.apistackbase.respository.ParkinglotRepository;
+import com.tw.apistackbase.service.ParkinglotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class ParkinglotController {
+    @Autowired
+    private ParkinglotService parkinglotService;
     @Autowired
     private ParkinglotRepository parkinglotRepository;
     @Autowired
@@ -24,33 +25,20 @@ public class ParkinglotController {
     }
     @DeleteMapping("/parkinglots/{id}")
     public ResponseEntity deleteParkinglot(@PathVariable int id, @RequestBody Parkinglot parkinglot) {
-        ArrayList<Parkinglot> parkinglots= (ArrayList<Parkinglot>) parkinglotRes.getParkinglots().stream().filter(delete->delete.getId()== id).collect(Collectors.toList());
-        if(parkinglots.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(parkinglots.remove(parkinglot));
-    }
-    @GetMapping("/parkinglots")
-    public ResponseEntity<List<Parkinglot>> getHasPageAndPageSize(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue ="0") int pageSize) {
-        if (page == 0 || pageSize == 0) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(parkinglotRes.getParkinglots().subList(page*(pageSize-1),page*pageSize));
-        }
+        return parkinglotService.getResponseEntity(id,parkinglot);
     }
 
+    @GetMapping("/parkinglots")
+    public ResponseEntity<List<Parkinglot>> getHasPageAndPageSize(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue ="0") int pageSize) {
+        return parkinglotService.getListResponseEntity(page,pageSize);
+    }
     @GetMapping("/parkinglots/{id}")
     public ResponseEntity<Parkinglot> getSpecialParkinglot(@PathVariable int id) {
-        return ResponseEntity.ok(parkinglotRes.getParkinglots().stream().filter(element -> element.getId() == id).findFirst().get());
+        return parkinglotService.loadSpecialParkinglot(id);
     }
     @PutMapping("/parkings/{id}")
     public ResponseEntity updateCompany(@PathVariable int id) {
-     int staus = parkinglotRepository.updateParkinglot(id);
-     Parkinglot parkinglot=parkinglotRepository.findById(id).get();
-        if (staus == 1) {
-            return ResponseEntity.ok(parkinglot);
-        }
-        return ResponseEntity.notFound().build();
+        return parkinglotService.getResponseEntityById(id);
     }
 
 }
