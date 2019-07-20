@@ -47,18 +47,18 @@ public class ParkOrderRestoryTest {
         //then
         Assertions.assertEquals(4,parkOrders.size());
     }
-//    @Test
-//    public  void should_get_has_capcity_parkinglot_information_when_has_parkinglot_by_id(){
-//        //given
-//        ParkOrder parkOrder=new ParkOrder(1001,"AODI",1,true);
-//        parkOrderRepository.save(parkOrder);
-//        ParkOrder parkOrder1=new ParkOrder(1002,"FUTE",2,true);
-//        parkOrderRepository.save(parkOrder1);
-//        //when
-//        int staus = parkOrderRepository.updateparkOrder(1002,false);
-//        ParkOrder parkOrder2=parkOrderRepository.findById((long) 1002).get();
-//        //then
-//        Assertions.assertEquals(false,parkOrder2.isStatus());
-//    }
+    @Test
+    public  void should_get_status_is_false_parkorder_information_when_has_parkingorder_by_orderNumber_and_status(){
+        //given
+        ParkOrder parkOrder=new ParkOrder(1001,"AODI",1,true);
+        parkOrderRepository.save(parkOrder);
+        ParkOrder parkOrder1=new ParkOrder(1002,"FUTE",2,true);
+        parkOrderRepository.save(parkOrder1);
+        //when
+        int staus = parkOrderRepository.updateparkOrder(1002,false);
+        ParkOrder parkOrder2=parkOrderRepository.findById((long) 1002).get();
+        //then
+        Assertions.assertEquals(false,parkOrder2.isStatus());
+    }
 
 }
