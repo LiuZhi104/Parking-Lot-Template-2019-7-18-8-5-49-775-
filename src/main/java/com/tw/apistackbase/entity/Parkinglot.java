@@ -65,4 +65,11 @@ public class Parkinglot {
     public void setPosition(String position) {
         this.position = position;
     }
+    public boolean parkingCarIntoParkingLot(Car car)throws Exception{
+        if(this.capcity == 0){
+            throw new Exception("停车场已经满");
+        }
+        this.capcity--;
+        return true;
+    }
 }

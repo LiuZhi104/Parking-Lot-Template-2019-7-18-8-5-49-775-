@@ -1,9 +1,6 @@
 package com.tw.apistackbase.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -11,44 +8,24 @@ public class ParkOrder {
     @Id
     @GeneratedValue
     private long oderNumber;
-    private String parkinglotName;
+
+    @OneToOne
+    @JoinColumn(name = "parkinglotName")
+    private Parkinglot parkinglot;
+
     private long carNumber;
     private Date startTime;
     private Date endTime;
     private boolean status;
-
-    public ParkOrder(long oderNumber, String parkinglotName, long carNumber, Date startTime, Date endTime, boolean status) {
-        this.oderNumber = oderNumber;
-        this.parkinglotName = parkinglotName;
-        this.carNumber = carNumber;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.status = status;
-    }
-
-    public ParkOrder(long oderNumber, String parkinglotName, long carNumber, Date endTime, boolean status) {
-        this.oderNumber = oderNumber;
-        this.parkinglotName = parkinglotName;
-        this.carNumber = carNumber;
-        this.endTime = endTime;
-        this.status = status;
-    }
-
-    public ParkOrder(long oderNumber, long carNumber, Date endTime, boolean status) {
-        this.oderNumber = oderNumber;
-        this.carNumber = carNumber;
-        this.endTime = endTime;
-        this.status = status;
-    }
-
-    public ParkOrder(long oderNumber, String parkinglotName, long carNumber, boolean status) {
-        this.oderNumber = oderNumber;
-        this.parkinglotName = parkinglotName;
-        this.carNumber = carNumber;
-        this.status = status;
-    }
-
     public ParkOrder() {
+    }
+
+    public Parkinglot getParkinglot() {
+        return parkinglot;
+    }
+
+    public void setParkinglot(Parkinglot parkinglot) {
+        this.parkinglot = parkinglot;
     }
 
     public long getOderNumber() {
@@ -57,14 +34,6 @@ public class ParkOrder {
 
     public void setOderNumber(long oderNumber) {
         this.oderNumber = oderNumber;
-    }
-
-    public String getParkinglotName() {
-        return parkinglotName;
-    }
-
-    public void setParkinglotName(String parkinglotName) {
-        this.parkinglotName = parkinglotName;
     }
 
     public long getCarNumber() {
